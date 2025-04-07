@@ -12,7 +12,7 @@ PROJECT_DIR="/var/www/html/blog"
 set -e
 
 # 确保传入了两个参数
-if [ $# -ne 2 ]; then
+if [ $# -le 2 ]; then
     echo "错误: 请提供两个命令行参数."
     echo "用法: ./script.sh <操作类型> <目标>"
     exit 1
@@ -32,11 +32,11 @@ case $operation in
                 docker-compose run -w ${PROJECT_DIR} --rm composer install
                 ;;
             remove)
-                echo -e "执行 Composer remove 删除依赖包: ${GREEN}$2${RESET}"
-                docker-compose run -w ${PROJECT_DIR} --rm composer remove "$3" $4
+                echo -e "执行 Composer remove 删除依赖包: ${GREEN}$3${RESET}"
+                docker-compose run -w ${PROJECT_DIR} --rm composer remove "$3"
                 ;;
             require)
-                echo -e "执行 Composer require 拉取依赖: ${GREEN}$2${RESET}"
+                echo -e "执行 Composer require 拉取依赖: ${GREEN}$3${RESET}"
                 docker-compose run -w ${PROJECT_DIR} --rm composer require "$3"
                 ;;
 
