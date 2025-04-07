@@ -11,8 +11,8 @@ PROJECT_DIR="/var/www/html/blog"
 # 确保脚本出错时停止执行
 set -e
 
-# 确保传入了两个参数
-if [ $# -le 2 ]; then
+# 检查是否有两个及以上参数
+if [ $# -lt 2 ]; then
     echo "错误: 请提供两个命令行参数."
     echo "用法: ./script.sh <操作类型> <目标>"
     exit 1
@@ -27,6 +27,10 @@ target=$2
 case $operation in
     composer)
         case $target in
+            create)
+                echo -e "执行 Composer create 创建项目并拉取项目依赖包"
+                docker-compose run -w ${PROJECT_DIR} --rm composer create-project laravel/laravel $3 $4
+                ;;
             install)
                 echo -e "执行 Composer install 拉取项目依赖包"
                 docker-compose run -w ${PROJECT_DIR} --rm composer install
@@ -77,5 +81,5 @@ case $operation in
         echo "无效的操作类型: $operation"
         ;;
 esac
-
+# 输出操作完成的消息
 echo "操作完成！"
