@@ -22,6 +22,7 @@ services:
       - ../src:/var/www/html
     networks:
         - local_network
+
   composer:
     image: composer:2.5
     container_name: composer
