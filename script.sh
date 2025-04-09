@@ -5,6 +5,12 @@ GREEN='\033[32m'
 # 重置颜色的ANSI转义码
 RESET='\033[0m'
 
+# 保存当前目录
+CURRENT_DIR=$(pwd)
+
+#进入docker执行目录
+cd ${CURRENT_DIR}/docker
+
 # 定义项目目录
 PROJECT_DIR="/var/www/html/blog"
 
@@ -83,3 +89,6 @@ case $operation in
 esac
 # 输出操作完成的消息
 echo "操作完成！"
+
+# 返回到原来的目录
+cd "$CURRENT_DIR"
